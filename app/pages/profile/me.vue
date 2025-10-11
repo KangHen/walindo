@@ -1,6 +1,5 @@
 <template>
   <div class="max-w-md mx-auto mt-4 space-y-5">
-    <!-- Profile Info Section -->
     <Card class="text-center">
       <template #content>
         <div class="flex flex-col items-center">
@@ -78,7 +77,6 @@ import Card from 'primevue/card'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
 import Avatar from 'primevue/avatar'
-import Divider from 'primevue/divider'
 
 const layoutProps = useState('layout-props')
 layoutProps.value = {
@@ -86,7 +84,6 @@ layoutProps.value = {
   showBackButton: true
 }
 
-// 🧑 Data user (mock)
 const user = reactive({
   name: 'Hendri Argadiyanto',
   email: 'hendri@example.com',
