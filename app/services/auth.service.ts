@@ -1,7 +1,7 @@
 // services/auth.service.ts
 import { useFetch } from '#app';
 import type { AuthResponse } from '~/types/api/auth';
-import type { User } from '~/types/models/User';
+import type { User } from '~/types/models/user';
 
 const config = useRuntimeConfig()
 

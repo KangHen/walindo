@@ -12,8 +12,8 @@ export const useAuth = () => {
 
     try {
       const res = await AuthService.login(email, password)
-      if (res?.token) {
-        authStore.setAuth(res.token, res.user)
+      if (res?.accessToken || res?.token) {
+        authStore.setAuth(res.accessToken ?? res.token, res.user ?? res)
         navigateTo('/')
       } else {
         throw new Error('User or password is incorrect')

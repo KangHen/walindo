@@ -27,13 +27,6 @@ const onSubmit = async () => {
   loading.value = true
   try {
     await login(username.value, password.value)
-    toast.add({
-      severity: 'success',
-      summary: 'Login Successful',
-      detail: `Welcome to Walindo, ${username.value}!`,
-      life: 3000,
-    })
-    navigateTo('/')
   } catch (err) {
     toast.add({
       severity: 'error',

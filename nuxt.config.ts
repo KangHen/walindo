@@ -4,7 +4,7 @@ import Aura from '@primeuix/themes/aura';
 export default defineNuxtConfig({
   ssr: false,
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: [
     '@pinia/nuxt',
     '@primevue/nuxt-module',
@@ -36,5 +36,17 @@ export default defineNuxtConfig({
     public: {
       apiUrl: process.env.NUXT_PUBLIC_API_URL,
     },
-  }
+  },
+
+  css: [
+    'primeicons/primeicons.css',
+    '@/assets/css/main.css'
+  ],
+
+  app: {
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in',
+    },
+  },
 })
