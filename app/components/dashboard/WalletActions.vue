@@ -14,8 +14,8 @@
 <script setup lang="ts">
 const actions = [
   { label: "Top Up", icon: "pi-plus-circle" },
-  { label: "Kirim", icon: "pi-send" },
-  { label: "Terima", icon: "pi-download" },
-  { label: "Riwayat", icon: "pi-clock" }
+  { label: "Send", icon: "pi-send" },
+  { label: "Receive", icon: "pi-download" },
+  { label: "History", icon: "pi-clock" }
 ]
 </script>

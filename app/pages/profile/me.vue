@@ -38,18 +38,26 @@
 
           <div v-if="isEditing" class="space-y-3">
             <div>
-              <label class="text-sm text-gray-500 block mb-1">Nama</label>
+              <label class="text-sm text-gray-500 block mb-1">Username</label>
               <InputText
-                v-model="editUser.name"
-                placeholder="Masukkan nama"
+                v-model="userForm.username"
+                placeholder="Enter your username"
+                class="w-full"
+              />
+            </div>
+            <div>
+              <label class="text-sm text-gray-500 block mb-1">Name</label>
+              <InputText
+                v-model="userForm.name"
+                placeholder="Enter your name"
                 class="w-full"
               />
             </div>
             <div>
               <label class="text-sm text-gray-500 block mb-1">Email</label>
               <InputText
-                v-model="editUser.email"
-                placeholder="Masukkan email"
+                v-model="userForm.email"
+                placeholder="Enter your email"
                 class="w-full"
               />
             </div>
@@ -72,7 +80,6 @@
 
 <script setup lang="ts">
 import { useState } from '#app'
-import { ref, reactive } from 'vue'
 import Card from 'primevue/card'
 import Button from 'primevue/button'
 import InputText from 'primevue/inputtext'
@@ -87,23 +94,27 @@ layoutProps.value = {
 const user = reactive({
   name: 'Hendri Argadiyanto',
   email: 'hendri@example.com',
+  username: 'hend998',
   photo: 'https://i.pravatar.cc/150?img=12',
 })
 
 const isEditing = ref(false)
-const editUser = reactive({
+const userForm = reactive({
   name: user.name,
   email: user.email,
+  username: user.username
 })
 
 const toggleEdit = () => {
   if (!isEditing.value) {
     isEditing.value = true
-    editUser.name = user.name
-    editUser.email = user.email
+    userForm.name = user.name
+    userForm.email = user.email
+    userForm.username = user.username
   } else {
-    user.name = editUser.name
-    user.email = editUser.email
+    user.name = userForm.name
+    user.email = userForm.email
+    user.username = userForm.username
     isEditing.value = false
   }
 }
