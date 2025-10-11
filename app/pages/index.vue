@@ -14,6 +14,11 @@ import WalletActions from '~/components/dashboard/WalletActions.vue'
 import WalletTransactions from '~/components/dashboard/WalletTransactions.vue'
 import type { Transaction } from '~/types/models/transation'
 
+const layoutProps = useState('layout-props')
+layoutProps.value = {
+  title: 'Wallet Indonesia'
+}
+
 const balance = 325000
 const updatedAt = "5 menit lalu"
 
