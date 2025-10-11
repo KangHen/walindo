@@ -1,8 +1,8 @@
 <template>
   <div class="mt-5 bg-white rounded-2xl shadow-md p-4">
     <div class="flex justify-between items-center mb-3">
-      <span class="font-semibold text-gray-700">Transaksi Terakhir</span>
-      <a href="#" class="text-green-600 text-sm">Lihat Semua</a>
+      <span class="font-semibold text-gray-700">Latest Transactions</span>
+      <a href="#" class="text-green-600 text-sm">View All</a>
     </div>
 
     <ul class="divide-y divide-gray-100">

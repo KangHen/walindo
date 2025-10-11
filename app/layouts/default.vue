@@ -2,24 +2,40 @@
   <div class="flex flex-col min-h-screen bg-gray-50 relative">
     <NuxtLoadingIndicator />
 
-    <!-- Fixed Header -->
+    <!-- Header -->
     <header
-      class="p-4 bg-white shadow-sm fixed top-0 left-0 right-0 z-10 flex items-center justify-center h-16"
+      class="p-4 bg-white shadow-sm fixed top-0 left-0 right-0 z-10 flex items-center justify-between h-16"
     >
-      <slot name="header">
-        <h1 class="text-lg font-semibold text-green-700">Wallet Indonesia</h1>
-      </slot>
+      <!-- Button Back -->
+      <button
+        v-if="layoutProps.showBackButton ?? false"
+        class="text-green-700 hover:text-green-800 transition flex items-center gap-1"
+        @click="handleBack"
+      >
+        <i class="pi pi-arrow-left text-lg"></i>
+      </button>
+
+      <!-- Title -->
+      <h1 class="text-lg font-semibold text-green-700 text-center flex-1">
+        {{ layoutProps.title || 'Wallet Indonesia' }}
+      </h1>
+
+      <!-- Spacer kanan biar tetap rata -->
+      <div class="w-[60px]"></div>
     </header>
 
-    <!-- Main Content (scrolls with page) -->
+    <!-- Main Content -->
     <main class="flex-1 pt-20 pb-24">
-      <div class="max-h-[85vh] px-4 overflow-y-auto">
+      <div class="px-4 overflow-y-auto"
+        :class="{ 'max-h-[85vh] min-h-auto': layoutProps.showBackButton == false, 'max-h-[95vh] min-h-auto py-2': layoutProps.showBackButton == true }"
+      >
         <slot />
       </div>
     </main>
 
     <!-- Bottom Navigation -->
     <nav
+      v-if="layoutProps.showBackButton != true"
       class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-md flex justify-around items-center h-16 z-10"
     >
       <button
@@ -37,14 +53,25 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute, navigateTo } from '#app'
+import { useRoute, useRouter, navigateTo, useState } from '#app'
 import auth from '~/middleware/auth'
 
 definePageMeta({
-  middleware: [auth],
+  middleware: [auth]
 })
 
 const route = useRoute()
+const router = useRouter()
+
+// layoutProps
+const layoutProps = useState('layout-props', () => ({
+  title: 'Wallet Indonesia',
+  showBackButton: true
+}))
+
+const handleBack = () => {
+  router.back()
+}
 
 const navItems = [
   { label: 'Home', icon: 'pi-home', path: '/' },
@@ -58,7 +85,6 @@ const navItems = [
 nav {
   backdrop-filter: blur(6px);
 }
-
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   nav {
     padding-bottom: env(safe-area-inset-bottom);
