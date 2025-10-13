@@ -8,9 +8,10 @@ const config = useRuntimeConfig()
 const API_URL = `${config.public.apiUrl}/transactions`
 
 export const TransactionService = {
-  async getAll(params?: Record<string, any>): Promise<TransactionListResponse> {
-    const query = params ? '?' + new URLSearchParams(params).toString() : ''
-    const { data, error } = await useFetch<TransactionListResponse>(`${API_URL}${query}`)
+ async getAll(params?: Record<string, any>): Promise<TransactionListResponse> {
+    const { data, error } = await useFetch<TransactionListResponse>(API_URL, {
+      query: params,
+    })
     if (error.value) throw new Error(error.value.message || 'Failed to fetch transactions')
     return data.value as TransactionListResponse
   },
