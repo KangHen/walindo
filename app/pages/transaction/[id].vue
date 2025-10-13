@@ -13,7 +13,6 @@
           />
         </div>
       </template>
-
       <template #content>
         <div class="space-y-3 text-sm text-gray-700">
           <div class="flex justify-between">
@@ -25,14 +24,11 @@
               {{ formatAmountCurrency(trx.amount) }}
             </span>
           </div>
-
           <Divider />
-
           <div class="flex justify-between">
             <span class="text-gray-500">Date</span>
             <span>{{ trx.date }}</span>
           </div>
-
           <div class="flex justify-between">
             <span class="text-gray-500">Type</span>
             <Tag
@@ -41,7 +37,6 @@
               rounded
             />
           </div>
-
           <div class="flex justify-between">
             <span class="text-gray-500">Reference ID</span>
             <span class="font-mono text-gray-600">
@@ -50,7 +45,6 @@
           </div>
         </div>
       </template>
-
       <template #footer>
         <div class="flex gap-2 mt-3">
           <Button

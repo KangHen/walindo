@@ -83,8 +83,6 @@
       />
     </div>
     </div>
-
-    <!-- 📜 Transactions -->
     <div class="space-y-3">
       <Card
         v-for="trx in filteredTransactions"
@@ -102,7 +100,6 @@
             />
           </div>
         </template>
-
         <template #content>
           <div class="flex justify-between items-center text-sm">
             <div class="text-gray-500">{{ trx.date }}</div>
@@ -131,7 +128,6 @@
         </template>
       </Card>
     </div>
-
     <p v-if="filteredTransactions.length === 0" class="text-center text-gray-400 text-sm py-6">
       No transactions found.
     </p>
