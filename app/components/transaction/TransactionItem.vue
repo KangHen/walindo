@@ -36,7 +36,6 @@ const statusLabel = computed(() => {
     [TransactionStatus.FAILED]: 'Failed',
   }
 
-  // 🔹 Tambahkan default handling agar tidak error jika status undefined
   return props.transaction.status
     ? map[props.transaction.status]
     : 'Unknown'
