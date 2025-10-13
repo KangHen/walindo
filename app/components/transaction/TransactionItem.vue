@@ -15,30 +15,30 @@
       ]"
     >
       {{ transaction.type === 'credit' ? '+' : '-' }}
-      Rp{{ formatAmount(transaction.amount) }}
+      Rp{{ formatAmountCurrency(transaction.amount) }}
     </span>
   </div>
 </template>
 
-<script setup>
+
+<script setup lang="ts">
 import { computed } from 'vue'
+import { formatAmountCurrency } from '@/utils/GlobalHelper'
+import { TransactionStatus } from '@/types/enums/transaction'
+import type { Transaction } from '~/types/models/transaction'
 
-const props = defineProps({
-  transaction: {
-    type: Object,
-    required: true,
-  },
+const props = defineProps<{ transaction: Transaction }>()
+
+const statusLabel = computed(() => {
+  const map: Record<TransactionStatus, string> = {
+    [TransactionStatus.SUCCESS]: 'Success',
+    [TransactionStatus.PENDING]: 'Pending',
+    [TransactionStatus.FAILED]: 'Failed',
+  }
+
+  // 🔹 Tambahkan default handling agar tidak error jika status undefined
+  return props.transaction.status
+    ? map[props.transaction.status]
+    : 'Unknown'
 })
-
-const statusMap = {
-  success: '✅ Success',
-  pending: '⏳ Pending',
-  failed: '❌ Failed',
-}
-
-const statusLabel = computed(() => statusMap[props.transaction.status] || props.transaction.status)
-
-function formatAmount(value) {
-  return new Intl.NumberFormat('id-ID').format(value)
-}
 </script>

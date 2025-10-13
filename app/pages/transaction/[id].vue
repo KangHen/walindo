@@ -1,12 +1,5 @@
 <template>
   <div class="max-w-md mx-auto p-4 space-y-4">
-    <Button
-      label="Back"
-      icon="pi pi-arrow-left"
-      class="p-button-text text-sm"
-      @click="$router.back()"
-    />
-
     <Card>
       <template #title>
         <div class="flex justify-between items-center">
@@ -15,7 +8,7 @@
           </h2>
           <Tag
             :value="trx.status"
-            :severity="getStatusColor(trx.status)"
+            :severity="statusColorLabel(trx.status)"
             rounded
           />
         </div>
@@ -29,7 +22,7 @@
               :class="trx.type === 'credit' ? 'text-green-600' : 'text-red-500'"
               class="font-semibold"
             >
-              {{ formatCurrency(trx.amount) }}
+              {{ formatAmountCurrency(trx.amount) }}
             </span>
           </div>
 
@@ -79,42 +72,43 @@
   </div>
 </template>
 
+
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import { computed } from 'vue'
 import Card from 'primevue/card'
 import Button from 'primevue/button'
 import Tag from 'primevue/tag'
 import Divider from 'primevue/divider'
+import { useRoute } from 'vue-router'
+import { formatAmountCurrency, statusColorLabel } from '@/utils/GlobalHelper'
+import { TransactionType, TransactionStatus } from '@/types/enums/transaction'
+import type { Transaction } from '~/types/models/transaction'
+
+const layoutProps = useState('layout-props')
+layoutProps.value = {
+  title: 'Transaction Details',
+  showBackButton: true,
+}
 
 const route = useRoute()
 const id = route.params.id as string
 
-const trx = {
-  id,
+const trx: Transaction = {
+  id: Number(id),
   title: 'Payment to Tokopedia',
   date: '2025-10-10 09:33',
   amount: 150000,
-  type: 'debit',
-  status: 'success',
+  type: TransactionType.DEBIT,
+  status: TransactionStatus.SUCCESS,
 }
 
-const formatCurrency = (value: number) =>
-  new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    maximumFractionDigits: 0,
-  }).format(value)
-
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case 'success': return 'success'
-    case 'pending': return 'warning'
-    case 'failed': return 'danger'
-    default: return 'info'
-  }
-}
 </script>
+
+<style scoped>
+.p-card {
+  border-radius: 16px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+</style>
 
 <style scoped>
 .p-card {

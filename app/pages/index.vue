@@ -12,7 +12,7 @@ import WalletHeader from '~/components/dashboard/WalletStatus.vue'
 import WalletBalance from '~/components/dashboard/WalletBalance.vue'
 import WalletActions from '~/components/dashboard/WalletActions.vue'
 import WalletTransactions from '~/components/dashboard/WalletTransactions.vue'
-import type { Transaction } from '~/types/models/transation'
+import type { Transaction } from '~/types/models/transaction'
 
 const layoutProps = useState('layout-props')
 layoutProps.value = {
