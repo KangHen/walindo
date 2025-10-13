@@ -68,7 +68,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     async upload(url: string, formData: FormData, opts?: any) {
       try {
         const data = await instance(url, {
-          method: "POST", // default upload endpoint
+          method: "POST",
           body: formData,
           headers: { "Content-Type": "multipart/form-data" },
           ...opts,
