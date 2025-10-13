@@ -16,7 +16,18 @@ export default defineNuxtPlugin((nuxtApp) => {
     },
 
     async onResponse({ request, response, options }) {
-      console.log("[fetch response]", request, response.status, response.body);
+      const res = response._data;
+
+      if (res && "data" in res && !("current_page" in res.data)) {
+        response._data = res.data;
+        return;
+      }
+
+      if (res && "data" in res && "current_page" in res.data) {
+        const { data, ...meta } = res.data;
+        response._data = { data, meta };
+        return;
+      }
     },
 
     async onResponseError({ request, response, options }) {
@@ -24,7 +35,12 @@ export default defineNuxtPlugin((nuxtApp) => {
         navigateTo("/login");
       }
 
-      console.error("[fetch error]", request, response.status, response.body);
+      const error: any = {
+        message: response._data?.message || "An error occurred",
+        status: response.status,
+      };
+
+      throw error;
     },
   });
 
@@ -33,8 +49,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       localStorage.removeItem("token");
 
       try {
-        const data = await instance(url, { method: "POST", body, ...opts });
-        return { success: true, data };
+        return await instance(url, { method: "POST", body, ...opts });
       } catch (err: any) {
         return handleApiError(err);
       }
@@ -42,10 +57,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     async get(url: string, params?: any, opts?: any) {
       try {
-        const data = await instance(url, { method: "GET", params, ...opts });
-        console.log(data);
-
-        return { success: true, data };
+        return await instance(url, { method: "GET", params, ...opts });
       } catch (err: any) {
         return handleApiError(err);
       }
@@ -53,8 +65,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     async post(url: string, body?: any, opts?: any) {
       try {
-        const data = await instance(url, { method: "POST", body, ...opts });
-        return { success: true, data };
+        return await instance(url, { method: "POST", body, ...opts });
       } catch (err: any) {
         return handleApiError(err);
       }
@@ -62,8 +73,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     async put(url: string, body?: any, opts?: any) {
       try {
-        const data = await instance(url, { method: "PUT", body, ...opts });
-        return { success: true, data };
+        return await instance(url, { method: "PUT", body, ...opts });
       } catch (err: any) {
         return handleApiError(err);
       }
@@ -71,8 +81,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     async delete(url: string, body?: any, opts?: any) {
       try {
-        const data = await instance(url, { method: "DELETE", body, ...opts });
-        return { success: true, data };
+        return await instance(url, { method: "DELETE", body, ...opts });
       } catch (err: any) {
         return handleApiError(err);
       }
@@ -80,13 +89,12 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     async upload(url: string, formData: FormData, opts?: any) {
       try {
-        const data = await instance(url, {
+        return await instance(url, {
           method: "POST",
           body: formData,
           headers: { "Content-Type": "multipart/form-data" },
           ...opts,
         });
-        return { success: true, data };
       } catch (err: any) {
         return handleApiError(err);
       }
