@@ -151,12 +151,9 @@ import Dropdown from 'primevue/dropdown'
 import Tag from 'primevue/tag'
 import Card from 'primevue/card'
 
-const router = useRouter()
-
 const search = ref('')
 const filterType = ref<TransactionType | ''>('')
 const filterStatus = ref<TransactionStatus | ''>('')
-const selectedRange = ref('1m')
 
 const transactions = ref<Transaction[]>([
   { id: 1, title: 'Top Up BCA VA', date: '2025-10-11', amount: 250000, type: TransactionType.CREDIT, status: TransactionStatus.SUCCESS },
@@ -175,7 +172,6 @@ const filteredTransactions = computed(() => {
     return matchSearch && matchType && matchStatus
   })
 })
-
 
 function refreshList() {
   console.log('List refreshed')
