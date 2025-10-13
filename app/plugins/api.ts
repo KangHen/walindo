@@ -29,9 +29,22 @@ export default defineNuxtPlugin((nuxtApp) => {
   });
 
   const api = {
+    async auth(url: string, body?: any, opts?: any) {
+      localStorage.removeItem("token");
+
+      try {
+        const data = await instance(url, { method: "POST", body, ...opts });
+        return { success: true, data };
+      } catch (err: any) {
+        return handleApiError(err);
+      }
+    },
+
     async get(url: string, params?: any, opts?: any) {
       try {
         const data = await instance(url, { method: "GET", params, ...opts });
+        console.log(data);
+
         return { success: true, data };
       } catch (err: any) {
         return handleApiError(err);
