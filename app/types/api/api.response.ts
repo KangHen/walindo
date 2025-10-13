@@ -1,3 +1,4 @@
+// types/api/api.response.ts
 export interface ApiResponse<T> {
   success: boolean;
   status?: number;
@@ -10,15 +11,9 @@ export interface ApiError {
   status?: number;
 }
 
-export interface ApiPaginatedResponse<T> {
-  success: boolean;
-  message?: string;
-  status?: number;
-  data: {
-    data: T[];
-    current_page: number;
-    per_page: number;
-    total: number;
-    last_page: number;
-  };
+export interface ApiPaginatedResponse<T> extends ApiResponse<T> {
+  current_page: number;
+  per_page: number;
+  total: number;
+  last_page: number;
 }
