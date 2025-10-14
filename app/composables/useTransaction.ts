@@ -10,10 +10,10 @@ export const useTransaction = () => {
 
   const fetchTransactions = async (params?: Record<string, any>) => {
     loading.value = true
-    errorMessage.value = null
+    // errorMessage.value = null
     try {
       const res = await TransactionService.getAll(params)
-      store.setTransactions(res.data)
+      store.setTransactions(res.data ?? [])
     } catch (err: any) {
       errorMessage.value = err.message || 'Failed to load transactions'
     } finally {
@@ -26,7 +26,7 @@ export const useTransaction = () => {
     errorMessage.value = null
     try {
       const res = await TransactionService.getById(id)
-      store.setSelectedTransaction(res.data)
+      store.setSelectedTransaction(res.data ?? null)
     } catch (err: any) {
       errorMessage.value = err.message || 'Transaction not found'
     } finally {

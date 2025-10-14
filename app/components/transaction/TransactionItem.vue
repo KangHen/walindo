@@ -5,13 +5,13 @@
   >
     <div>
       <p class="font-semibold text-gray-800">{{ transaction.title }}</p>
-      <p class="text-sm text-gray-500">{{ transaction.date }} • {{ statusLabel }}</p>
+      <p class="text-sm text-gray-500">{{ transaction.trx_date }} • {{ statusLabel }}</p>
     </div>
     <span
-      :class="[ 'font-bold', transaction.type === 'credit' ? 'text-green-600' : 'text-red-600'
+      :class="[ 'font-bold', transaction.transaction_type === 'credit' ? 'text-green-600' : 'text-red-600'
       ]"
     >
-      {{ transaction.type === 'credit' ? '+' : '-' }} Rp{{ formatAmountCurrency(transaction.amount) }}
+      {{ transaction.transaction_type === 'credit' ? '+' : '-' }} Rp{{ formatAmountCurrency(transaction.amount) }}
     </span>
   </div>
 </template>

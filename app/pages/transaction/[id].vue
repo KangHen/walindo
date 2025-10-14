@@ -18,7 +18,7 @@
           <div class="flex justify-between">
             <span class="text-gray-500">Amount</span>
             <span
-              :class="trx.type === 'credit' ? 'text-green-600' : 'text-red-500'"
+              :class="trx.transaction_type === 'credit' ? 'text-green-600' : 'text-red-500'"
               class="font-semibold"
             >
               {{ formatAmountCurrency(trx.amount) }}
@@ -27,13 +27,13 @@
           <Divider />
           <div class="flex justify-between">
             <span class="text-gray-500">Date</span>
-            <span>{{ trx.date }}</span>
+            <span>{{ trx.trx_date }}</span>
           </div>
           <div class="flex justify-between">
             <span class="text-gray-500">Type</span>
             <Tag
-              :value="trx.type"
-              :severity="trx.type === 'credit' ? 'success' : 'danger'"
+              :value="trx.transaction_type"
+              :severity="trx.transaction_type === 'credit' ? 'success' : 'danger'"
               rounded
             />
           </div>
@@ -89,10 +89,15 @@ const id = route.params.id as string
 const trx: Transaction = {
   id: Number(id),
   title: 'Payment to Tokopedia',
-  date: '2025-10-10 09:33',
+  trx_date: '2025-10-10 09:33',
   amount: 150000,
-  type: TransactionType.DEBIT,
+  transaction_type: TransactionType.DEBIT,
   status: TransactionStatus.SUCCESS,
+  reference_code: '',
+  icon: '',
+  created_at: '',
+  updated_at: '',
+  mutations: []
 }
 
 </script>

@@ -30,13 +30,13 @@
         <template #title>
           <div class="flex justify-between items-center">
             <span class="font-semibold text-gray-700">{{ trx.title }}</span>
-            <Tag :value="trx.type" :severity="trx.type === TransactionType.CREDIT ? 'success' : 'danger'" rounded />
+            <Tag :value="trx.transaction_type" :severity="trx.transaction_type === TransactionType.CREDIT ? 'success' : 'danger'" rounded />
           </div>
         </template>
         <template #content>
           <div class="flex justify-between items-center text-sm">
-            <div class="text-gray-500">{{ trx.date }}</div>
-            <div :class="trx.type === TransactionType.CREDIT ? 'text-green-600' : 'text-red-500'" class="font-semibold">
+            <div class="text-gray-500">{{ trx.trx_date }}</div>
+            <div :class="trx.transaction_type === TransactionType.CREDIT ? 'text-green-600' : 'text-red-500'" class="font-semibold">
               {{ formatAmountCurrency(trx.amount) }}
             </div>
           </div>
@@ -70,36 +70,36 @@ import InputText from 'primevue/inputtext'
 import Dropdown from 'primevue/dropdown'
 import Tag from 'primevue/tag'
 import Card from 'primevue/card'
+import { useTransaction } from '~/composables/useTransaction'
 
 const layoutProps = useState('layout-props')
 layoutProps.value = {
   title: 'Transaction',
 }
 
+const { transactions, loading, fetchTransactions } = useTransaction()
+
 const search = ref('')
 const filterType = ref<TransactionType | ''>('')
 const filterStatus = ref<TransactionStatus | ''>('')
 
-const transactions = ref<Transaction[]>([
-  { id: 1, title: 'Top Up BCA VA', date: '2025-10-11', amount: 250000, type: TransactionType.CREDIT, status: TransactionStatus.SUCCESS },
-  { id: 2, title: 'Payment to Tokopedia', date: '2025-10-10', amount: 150000, type: TransactionType.DEBIT, status: TransactionStatus.SUCCESS },
-  { id: 3, title: 'Transfer to @andi_wallet', date: '2025-10-09', amount: 50000, type: TransactionType.DEBIT, status: TransactionStatus.PENDING },
-  { id: 4, title: 'Refund from Marketplace', date: '2025-10-08', amount: 20000, type: TransactionType.CREDIT, status: TransactionStatus.FAILED },
-])
+onMounted(() => {
+  fetchTransactions()
+})
 
 const { total, creditDash, debitDash, creditOffset } = countTransactionAmount.computeTransactionSummary(transactions)
 
 const filteredTransactions = computed(() => {
   return transactions.value.filter(trx => {
     const matchSearch = trx.title.toLowerCase().includes(search.value.toLowerCase())
-    const matchType = filterType.value ? trx.type === filterType.value : true
+    const matchType = filterType.value ? trx.transaction_type === filterType.value : true
     const matchStatus = filterStatus.value ? trx.status === filterStatus.value : true
     return matchSearch && matchType && matchStatus
   })
 })
 
 function refreshList() {
-  console.log('List refreshed')
+  fetchTransactions()
 }
 
 </script>

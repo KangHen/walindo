@@ -17,7 +17,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     async onResponse({ request, response, options }) {
       const res = response._data;
-      response._data = res.data;
+      response._data = res;
     },
 
     async onResponseError({ request, response, options }) {

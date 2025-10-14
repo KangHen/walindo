@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { TransactionType } from '@/types/enums/transaction'
 import type { Transaction } from '~/types/models/transaction'
 
-export const useTransactionStore = defineStore('transaction', {
+export const useTransactionStore = defineStore("transaction", {
   state: () => ({
     transactions: [] as Transaction[],
     selectedTransaction: null as Transaction | null,
@@ -13,12 +13,12 @@ export const useTransactionStore = defineStore('transaction', {
 
     creditTotal: (state) =>
       state.transactions
-        .filter((t) => t.type === TransactionType.CREDIT)
+        .filter((t) => t.transaction_type === TransactionType.CREDIT)
         .reduce((a, b) => a + b.amount, 0),
 
     debitTotal: (state) =>
       state.transactions
-        .filter((t) => t.type === TransactionType.DEBIT)
+        .filter((t) => t.transaction_type === TransactionType.DEBIT)
         .reduce((a, b) => a + b.amount, 0),
 
     total(): number {
@@ -46,7 +46,7 @@ export const useTransactionStore = defineStore('transaction', {
       this.transactions = data
     },
 
-    setSelectedTransaction(data: Transaction) {
+    setSelectedTransaction(data: Transaction | null) {
       this.selectedTransaction = data
     },
 
