@@ -1,8 +1,10 @@
 <template>
-  <section class="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center text-center">
+  <section
+    class="bg-white rounded-2xl shadow-md p-6 flex flex-col items-center text-center"
+  >
     <div class="relative">
       <img
-        :src="user.avatarUrl"
+        :src="user?.photo"
         alt="User Photo"
         class="w-20 h-20 rounded-full object-cover border-4 border-green-500 shadow-sm"
       />
@@ -19,9 +21,9 @@
 </template>
 
 <script setup lang="ts">
-import type { User } from '~/types/models/user';
+import type { User } from "~/types/models/user";
 
 defineProps({
-  user: { type: Object as () => User, required: true }
-})
+  user: { type: Object as () => User, required: true },
+});
 </script>

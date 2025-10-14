@@ -1,50 +1,53 @@
 // composables/useAuth.ts
-import { AuthService } from '~/services/auth.service';
+import { AuthService } from "~/services/auth.service";
 
 export const useAuth = () => {
-  const authStore = useAuthStore()
-  const loading = ref(false)
-  const errorMessage = ref<string | null>(null)
+  const authStore = useAuthStore();
+  const loading = ref(false);
+  const errorMessage = ref<string | null>(null);
 
   const login = async (email: string, password: string) => {
-    loading.value = true
-    errorMessage.value = null
+    loading.value = true;
+    errorMessage.value = null;
 
     try {
-      const res = await AuthService.login(email, password)
-      if (res?.accessToken || res?.token) {
-        authStore.setAuth(res.accessToken ?? res.token, res.user ?? res)
-        navigateTo('/')
-      } else {
-        throw new Error('User or password is incorrect')
-      }
+      const response = await AuthService.login(email, password);
 
+      if (response?.token) {
+        authStore.setAuth(response.token, response.user ?? response);
+        navigateTo("/");
+      } else {
+        throw new Error("User or password is incorrect");
+      }
     } catch (err: any) {
-      errorMessage.value = err.message || 'Login failed'
+      errorMessage.value = err.message || "Login failed";
     } finally {
-      loading.value = false
+      loading.value = false;
     }
-  }
+  };
 
   const logout = async () => {
     try {
-      await AuthService.logout()
+      await AuthService.logout();
     } catch (_) {}
-    authStore.clearAuth()
-    navigateTo('/login')
-  }
+    authStore.clearAuth();
+    navigateTo("/login");
+  };
 
   const initAuth = () => {
-    authStore.loadAuthFromStorage()
-  }
+    authStore.loadAuthFromStorage();
+  };
 
   return {
-    user: computed(() => authStore.user),
+    user: computed(() => {
+      initAuth();
+      return authStore.user;
+    }),
     isAuthenticated: computed(() => authStore.isAuthenticated),
     loading,
     errorMessage,
     login,
     logout,
     initAuth,
-  }
-}
+  };
+};

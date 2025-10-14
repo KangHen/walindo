@@ -17,17 +17,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     async onResponse({ request, response, options }) {
       const res = response._data;
-
-      if (res && "data" in res && !("current_page" in res.data)) {
-        response._data = res.data;
-        return;
-      }
-
-      if (res && "data" in res && "current_page" in res.data) {
-        const { data, ...meta } = res.data;
-        response._data = { data, meta };
-        return;
-      }
+      response._data = res.data;
     },
 
     async onResponseError({ request, response, options }) {

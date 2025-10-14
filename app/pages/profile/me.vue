@@ -5,7 +5,7 @@
         <div class="flex flex-col items-center">
           <div class="relative">
             <Avatar
-              :image="user.photo"
+              :image="currentUser?.photo"
               shape="circle"
               size="xlarge"
               class="border-4 border-green-500 shadow-sm"
@@ -20,7 +20,7 @@
           </div>
 
           <h2 class="mt-3 text-lg font-semibold text-gray-800">
-            {{ isEditing ? 'Edit Profile' : user.name }}
+            {{ isEditing ? "Edit Profile" : currentUser?.name }}
           </h2>
         </div>
 
@@ -28,11 +28,11 @@
           <div v-if="!isEditing">
             <div class="mb-3">
               <label class="text-sm text-gray-500 block mb-1">Nama</label>
-              <p class="font-medium text-gray-800">{{ user.name }}</p>
+              <p class="font-medium text-gray-800">{{ currentUser?.name }}</p>
             </div>
             <div>
               <label class="text-sm text-gray-500 block mb-1">Email</label>
-              <p class="font-medium text-gray-800">{{ user.email }}</p>
+              <p class="font-medium text-gray-800">{{ currentUser?.email }}</p>
             </div>
           </div>
 
@@ -79,45 +79,48 @@
 </template>
 
 <script setup lang="ts">
-import { useState } from '#app'
-import Card from 'primevue/card'
-import Button from 'primevue/button'
-import InputText from 'primevue/inputtext'
-import Avatar from 'primevue/avatar'
+import { useState } from "#app";
+import Card from "primevue/card";
+import Button from "primevue/button";
+import InputText from "primevue/inputtext";
+import Avatar from "primevue/avatar";
+import type { User } from "~/types/models/user";
 
-const layoutProps = useState('layout-props')
+const layoutProps = useState("layout-props");
 layoutProps.value = {
-  title: 'My Profile',
-  showBackButton: true
-}
+  title: "My Profile",
+  showBackButton: true,
+};
 
-const user = reactive({
-  name: 'Hendri Argadiyanto',
-  email: 'hendri@example.com',
-  username: 'hend998',
-  photo: 'https://i.pravatar.cc/150?img=12',
-})
+const { user } = useAuth();
 
-const isEditing = ref(false)
+const currentUser = user.value;
+const isEditing = ref(false);
 const userForm = reactive({
-  name: user.name,
-  email: user.email,
-  username: user.username
-})
+  name: currentUser?.name,
+  email: currentUser?.email,
+  username: currentUser?.username,
+});
+
+const authStore = useAuthStore();
 
 const toggleEdit = () => {
   if (!isEditing.value) {
-    isEditing.value = true
-    userForm.name = user.name
-    userForm.email = user.email
-    userForm.username = user.username
+    isEditing.value = true;
+    userForm.name = currentUser?.name;
+    userForm.email = currentUser?.email;
+    userForm.username = currentUser?.username;
   } else {
-    user.name = userForm.name
-    user.email = userForm.email
-    user.username = userForm.username
-    isEditing.value = false
+    authStore.setUser({
+      ...currentUser,
+      name: userForm.name,
+      email: userForm.email,
+      username: userForm.username,
+    });
+
+    isEditing.value = false;
   }
-}
+};
 </script>
 
 <style scoped>
