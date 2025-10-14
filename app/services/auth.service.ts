@@ -21,11 +21,11 @@ export const AuthService = {
 
   async me(): Promise<UserResponse | null> {
     const { $api } = useNuxtApp();
-    return (await $api.auth(Routes.ME)) as UserResponse;
+    return (await $api.get(Routes.ME)) as UserResponse;
   },
 
   async logout(): Promise<void> {
     const { $api } = useNuxtApp();
-    return await $api.auth(Routes.LOGOUT);
+    return await $api.get(Routes.LOGOUT);
   },
 };
