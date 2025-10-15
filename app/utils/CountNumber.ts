@@ -7,13 +7,13 @@ export const countTransactionAmount = {
   computeTransactionSummary(transactions: Ref<Transaction[]>) {
     const creditTotal = computed(() =>
       transactions.value
-        .filter(t => t.type === TransactionType.CREDIT)
+        .filter(t => t.transaction_type === TransactionType.CREDIT)
         .reduce((a, b) => a + b.amount, 0)
     )
 
     const debitTotal = computed(() =>
       transactions.value
-        .filter(t => t.type === TransactionType.DEBIT)
+        .filter(t => t.transaction_type === TransactionType.DEBIT)
         .reduce((a, b) => a + b.amount, 0)
     )
 
