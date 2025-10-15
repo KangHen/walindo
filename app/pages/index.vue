@@ -8,24 +8,53 @@
 </template>
 
 <script setup lang="ts">
-import WalletHeader from '~/components/dashboard/WalletStatus.vue'
-import WalletBalance from '~/components/dashboard/WalletBalance.vue'
-import WalletActions from '~/components/dashboard/WalletActions.vue'
-import WalletTransactions from '~/components/dashboard/WalletTransactions.vue'
-import type { Transaction } from '~/types/models/transaction'
+import WalletHeader from "~/components/dashboard/WalletStatus.vue";
+import WalletBalance from "~/components/dashboard/WalletBalance.vue";
+import WalletActions from "~/components/dashboard/WalletActions.vue";
+import WalletTransactions from "~/components/dashboard/WalletTransactions.vue";
+import type { Transaction } from "~/types/models/transaction";
 
-const layoutProps = useState('layout-props')
+const layoutProps = useState("layout-props");
 layoutProps.value = {
-  title: 'Wallet Indonesia'
-}
+  title: "Wallet Indonesia",
+};
 
-const balance = 325000
-const updatedAt = "a few seconds ago"
+const { fetchWallet, balance } = useWallet();
+const updatedAt = "a few seconds ago";
 
-const transactions: Transaction[] = [
-  { id: 1, title: "Top Up from BCA", date: "10 Okt 2025", amount: 150000, icon: "pi-wallet" },
-  { id: 2, title: "Payment for Kopi Kenangan", date: "9 Okt 2025", amount: -25000, icon: "pi-shopping-bag" },
-  { id: 3, title: "Send to DANA", date: "8 Okt 2025", amount: -100000, icon: "pi-send" },
-  { id: 4, title: "Cashback Voucher", date: "7 Okt 2025", amount: 5000, icon: "pi-gift" }
-]
+const transactions: Array<Partial<Transaction>> = [
+  {
+    id: 1,
+    title: "Top Up from BCA",
+    trx_date: "10 Okt 2025",
+    amount: 150000,
+    icon: "pi-wallet",
+  },
+  {
+    id: 2,
+    title: "Payment for Kopi Kenangan",
+    trx_date: "9 Okt 2025",
+    amount: -25000,
+    icon: "pi-shopping-bag",
+  },
+  {
+    id: 3,
+    title: "Send to DANA",
+    trx_date: "8 Okt 2025",
+    amount: -100000,
+    icon: "pi-send",
+  },
+  {
+    id: 4,
+    title: "Cashback Voucher",
+    trx_date: "7 Okt 2025",
+    amount: 5000,
+    icon: "pi-gift",
+  },
+];
+
+onMounted(async () => {
+  await fetchWallet();
+  console.log("Balance:", balance.value);
+});
 </script>
