@@ -1,6 +1,9 @@
 export enum TransactionType {
   CREDIT = 'credit',
   DEBIT = 'debit',
+  DEPOSIT = 'deposit',
+  WITHDRAW = 'withdraw',
+  TRANSFER = 'transfer',
 }
 
 export enum TransactionStatus {

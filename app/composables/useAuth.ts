@@ -13,8 +13,12 @@ export const useAuth = () => {
     try {
       const response = await AuthService.login(email, password);
 
-      if (response?.token) {
-        authStore.setAuth(response.token, response.user ?? response);
+      if (response?.success && response?.data?.token) {
+        authStore.setAuth(
+          response.data.token,
+          response.data.user ?? response.data
+        );
+
         navigateTo("/");
       } else {
         throw new Error("User or password is incorrect");
@@ -31,6 +35,7 @@ export const useAuth = () => {
       await AuthService.logout();
     } catch (_) {}
     authStore.clearAuth();
+
     navigateTo("/login");
   };
 
