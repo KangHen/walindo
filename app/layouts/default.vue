@@ -16,18 +16,24 @@
       </button>
 
       <!-- Title -->
-      <h1 class="text-lg font-semibold text-green-700 text-center flex-1">
-        {{ layoutProps.title || 'Wallet Indonesia' }}
+      <h1
+        :class="
+          layoutProps?.showBackButton == true
+            ? 'text-lg font-semibold text-green-700 text-center flex-1'
+            : 'text-lg font-semibold text-green-700 mx-auto'
+        "
+      >
+        {{ layoutProps.title || "Wallet Indonesia" }}
       </h1>
-
-      <!-- Spacer kanan biar tetap rata -->
-      <div class="w-[60px]"></div>
     </header>
 
-    <!-- Main Content -->
     <main class="flex-1 pt-20 pb-24">
-      <div class="px-4 overflow-y-auto"
-        :class="{ 'max-h-[85vh] min-h-auto': layoutProps.showBackButton == false, 'max-h-[95vh] min-h-auto py-2': layoutProps.showBackButton == true }"
+      <div
+        class="px-4 overflow-y-auto"
+        :class="{
+          'max-h-[85vh] min-h-auto': layoutProps.showBackButton == false,
+          'max-h-[95vh] min-h-auto py-2': layoutProps.showBackButton == true,
+        }"
       >
         <slot />
       </div>
@@ -53,32 +59,32 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter, navigateTo, useState } from '#app'
-import auth from '~/middleware/auth'
+import { useRoute, useRouter, navigateTo, useState } from "#app";
+import auth from "~/middleware/auth";
 
 definePageMeta({
-  middleware: [auth]
-})
+  middleware: [auth],
+});
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
 // layoutProps
-const layoutProps = useState('layout-props', () => ({
-  title: 'Wallet Indonesia',
-  showBackButton: true
-}))
+const layoutProps = useState("layout-props", () => ({
+  title: "Wallet Indonesia",
+  showBackButton: false,
+}));
 
 const handleBack = () => {
-  router.back()
-}
+  router.back();
+};
 
 const navItems = [
-  { label: 'Home', icon: 'pi-home', path: '/' },
-  { label: 'Transaction', icon: 'pi-wallet', path: '/transaction' },
-  { label: 'QRIS', icon: 'pi-qrcode', path: '/qris' },
-  { label: 'Profile', icon: 'pi-user', path: '/profile' }
-]
+  { label: "Home", icon: "pi-home", path: "/" },
+  { label: "Transaction", icon: "pi-wallet", path: "/transaction" },
+  { label: "QRIS", icon: "pi-qrcode", path: "/qris" },
+  { label: "Profile", icon: "pi-user", path: "/profile" },
+];
 </script>
 
 <style scoped>

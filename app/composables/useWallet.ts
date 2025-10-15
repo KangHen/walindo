@@ -25,7 +25,7 @@ export const useWallet = () => {
 
   return {
     wallet: store.wallet,
-    balance: computed(() => store.balance),
+    balance: computed(() => store.balance as number),
     fetchWallet,
     loading,
     errorMessage,

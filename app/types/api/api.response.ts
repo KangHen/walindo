@@ -11,9 +11,13 @@ export interface ApiError {
   status?: number;
 }
 
-export interface ApiPaginatedResponse<T> extends ApiResponse<T> {
+export interface PaginateMeta {
   current_page: number;
   per_page: number;
   total: number;
   last_page: number;
+}
+
+export interface ApiPaginatedResponse<T> extends ApiResponse<T> {
+  meta: PaginateMeta;
 }
