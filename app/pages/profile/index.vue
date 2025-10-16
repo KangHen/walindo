@@ -25,7 +25,7 @@ const menuItems = [
     icon: "pi-shield",
     path: "/profile/verification",
   },
-  { label: "Settings", icon: "pi-cog", path: "/settings" },
-  { label: "Help Center", icon: "pi-question-circle", path: "/help" },
+  { label: "Settings", icon: "pi-cog", path: "/profile/settings" },
+  { label: "Help Center", icon: "pi-question-circle", path: "/profile/help" },
 ];
 </script>

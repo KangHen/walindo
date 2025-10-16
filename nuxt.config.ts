@@ -1,35 +1,38 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import Aura from '@primeuix/themes/aura';
+import Aura from "@primeuix/themes/aura";
 
 export default defineNuxtConfig({
   ssr: false,
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
   modules: [
-    '@pinia/nuxt',
-    '@primevue/nuxt-module',
-    '@nuxtjs/tailwindcss'
+    "@pinia/nuxt",
+    "@primevue/nuxt-module",
+    "@nuxtjs/tailwindcss",
+    "@nuxtjs/i18n",
   ],
+
   primevue: {
-      options: {
-          ripple: true,
-          inputVariant: 'filled',
-          theme: {
-              preset: Aura,
-              options: {
-                  prefix: 'p',
-                  darkModeSelector: 'system',
-                  cssLayer: false
-              }
-          }
-      }
+    options: {
+      ripple: true,
+      inputVariant: "filled",
+      theme: {
+        preset: Aura,
+        options: {
+          prefix: "p",
+          darkModeSelector: "system",
+          cssLayer: false,
+        },
+      },
+    },
   },
+
   typescript: {
     tsConfig: {
       compilerOptions: {
-        types: ["@types/node"]
-      }
-    }
+        types: ["@types/node"],
+      },
+    },
   },
 
   runtimeConfig: {
@@ -38,15 +41,22 @@ export default defineNuxtConfig({
     },
   },
 
-  css: [
-    'primeicons/primeicons.css',
-    '@/assets/css/main.css'
-  ],
+  css: ["primeicons/primeicons.css", "@/assets/css/main.css"],
 
   app: {
     pageTransition: {
-      name: 'page',
-      mode: 'out-in',
+      name: "page",
+      mode: "out-in",
     },
   },
-})
+
+  i18n: {
+    strategy: "no_prefix",
+    locales: [
+      { code: "id", iso: "id-ID", name: "Bahasa Indonesia", file: "id.json" },
+      { code: "en", iso: "en-US", name: "English", file: "en.json" },
+    ],
+    defaultLocale: "en",
+    langDir: "locales/",
+  },
+});

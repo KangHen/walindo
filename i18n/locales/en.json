@@ -1,0 +1,33 @@
+{
+    "home": {
+
+    },
+
+    "transaction": {
+
+    },
+
+    "qris": {
+
+    },
+
+    "profile": {
+
+    },
+
+    "settings": {
+        "title": "Settings",
+        "language": "Language",
+        "fingerprint": "Fingerprint Authentication",
+        "enableFingerprint": "Enable Fingerprint Authentication",
+        "security_code": "Security Code"
+    },
+    
+    "verification": {
+        "title": "Verify Your Email",
+        "description": "We have sent a verification link to your email. Please check your inbox or spam folder to proceed.",
+        "resendButton": "Resend Verification Email",
+        "resendSuccess": "A new verification email has been sent.",
+        "resendError": "Failed to resend verification email. Please try again later."
+    }
+}
