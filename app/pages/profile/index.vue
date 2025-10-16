@@ -17,7 +17,6 @@ layoutProps.value = {
 
 const { user } = useAuth();
 const currentUser: User = user.value as User;
-console.log(currentUser);
 
 const menuItems = [
   { label: "My Profile", icon: "pi-user-edit", path: "/profile/me" },
