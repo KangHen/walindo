@@ -5,7 +5,7 @@
       <a href="#" class="text-green-600 text-sm">View All</a>
     </div>
 
-    <ul class="divide-y divide-gray-100">
+    <ul v-if="!loading" class="divide-y divide-gray-100">
       <li
         v-for="(trx, i) in transactions"
         :key="i"
@@ -41,10 +41,16 @@
         </div>
       </li>
     </ul>
+
+    <div v-if="loading" class="w-full flex justify-center py-10">
+      <Skeleton shape="circle" size="3rem" class="mr-2"></Skeleton>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { Skeleton } from "primevue";
+
 import {
   typeColorLabel,
   getWalletMutationDirection,
@@ -55,5 +61,6 @@ import type { Transaction } from "~/types/models";
 
 const props = defineProps({
   transactions: { type: Array as () => Transaction[], default: () => [] },
+  loading: { type: Boolean, default: false },
 });
 </script>

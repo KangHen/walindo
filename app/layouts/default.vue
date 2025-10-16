@@ -30,10 +30,11 @@
     <main class="flex-1 pt-20 pb-24">
       <div
         class="px-4 overflow-y-auto"
-        :class="{
-          'max-h-[85vh] min-h-auto': layoutProps.showBackButton == false,
-          'max-h-[95vh] min-h-auto py-2': layoutProps.showBackButton == true,
-        }"
+        :class="
+          layoutProps.showBackButton == false
+            ? 'max-h-[85vh] min-h-auto'
+            : 'max-h-[95vh] min-h-auto py-2'
+        "
       >
         <slot />
       </div>

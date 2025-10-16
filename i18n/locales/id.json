@@ -1,0 +1,33 @@
+{
+    "home": {
+
+    },
+
+    "transaction": {
+
+    },
+
+    "qris": {
+
+    },
+
+    "profile": {
+
+    },
+
+    "settings": {
+        "title": "Pengaturan",
+        "language": "Bahasa",
+        "fingerprint": "Autentikasi Sidik Jari",
+        "enableFingerprint": "Aktifkan Autentikasi Sidik Jari",
+        "security_code": "Kunci Keamanan"
+    },
+    
+    "verification": {
+        "title": "Verifikasi Email Anda",
+        "description": "Kami telah mengirimkan tautan verifikasi ke email Anda. Silakan periksa inbox atau folder spam untuk melanjutkan.",
+        "resendButton": "Kirim Ulang Email Verifikasi",
+        "resendSuccess": "Email verifikasi baru telah dikirim.",
+        "resendError": "Gagal mengirim ulang email verifikasi. Silakan coba lagi nanti."
+    }
+}
