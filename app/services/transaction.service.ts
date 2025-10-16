@@ -4,56 +4,74 @@ import type {
   TransactionResponse,
   TransactionListResponse,
 } from "~/types/api/transaction.response";
-import type { Transaction } from "~/types/models/transaction";
-import { Routes } from '~/types/enums/routes'
+import type {
+  Transaction,
+  TransactionParams,
+} from "~/types/models/transaction";
+import { Routes } from "~/types/enums/routes";
 
 const config = useRuntimeConfig();
 
 const API_URL = `${config.public.apiUrl}/transactions`;
 
 export const TransactionService = {
-  async getAll(params?: Record<string, any>): Promise<TransactionListResponse> {
-    const { $api } = useNuxtApp()
+  async getAll(
+    params?: Partial<TransactionParams>
+  ): Promise<TransactionListResponse> {
+    const { $api } = useNuxtApp();
     try {
-      return (await $api.get(Routes.TRANSACTIONS, { params })) as TransactionListResponse
+      return (await $api.get(Routes.TRANSACTIONS, {
+        ...params,
+      })) as TransactionListResponse;
     } catch (error: any) {
-      throw new Error(error.message || 'Failed to fetch transactions')
+      throw new Error(error.message || "Failed to fetch transactions");
     }
   },
 
   async getById(id: number | string): Promise<TransactionResponse> {
-    const { $api } = useNuxtApp()
+    const { $api } = useNuxtApp();
     try {
-      return (await $api.get(`${Routes.TRANSACTIONS}/${id}`)) as TransactionResponse
+      return (await $api.get(
+        `${Routes.TRANSACTIONS}/${id}`
+      )) as TransactionResponse;
     } catch (error: any) {
-      throw new Error(error.message || 'Transaction not found')
+      throw new Error(error.message || "Transaction not found");
     }
   },
 
   async create(payload: Partial<Transaction>): Promise<TransactionResponse> {
-    const { $api } = useNuxtApp()
+    const { $api } = useNuxtApp();
     try {
-      return (await $api.post(Routes.TRANSACTIONS, payload)) as TransactionResponse
+      return (await $api.post(
+        Routes.TRANSACTIONS,
+        payload
+      )) as TransactionResponse;
     } catch (error: any) {
-      throw new Error(error.message || 'Failed to create transaction')
+      throw new Error(error.message || "Failed to create transaction");
     }
   },
 
-  async update(id: number, payload: Partial<Transaction>): Promise<TransactionResponse> {
-    const { $api } = useNuxtApp()
+  async update(
+    id: number,
+    payload: Partial<Transaction>
+  ): Promise<TransactionResponse> {
+    const { $api } = useNuxtApp();
     try {
-      return (await $api.put(`${Routes.TRANSACTIONS}/${id}`, payload)) as TransactionResponse
+      return (await $api.put(
+        `${Routes.TRANSACTIONS}/${id}`,
+        payload
+      )) as TransactionResponse;
     } catch (error: any) {
-      throw new Error(error.message || 'Failed to update transaction')
+      throw new Error(error.message || "Failed to update transaction");
     }
   },
 
   async delete(id: number): Promise<void> {
-    const { $api } = useNuxtApp()
+    const { $api } = useNuxtApp();
     try {
-      await $api.delete(`${Routes.TRANSACTIONS}/${id}`)
+      await $api.delete(`${Routes.TRANSACTIONS}/${id}`);
     } catch (error: any) {
-      throw new Error(error.message || 'Failed to delete transaction')
+      throw new Error(error.message || "Failed to delete transaction");
     }
   },
-}
+};

@@ -11,6 +11,7 @@ export const useWallet = () => {
 
     try {
       const response = await WalletService.getWallet();
+
       if (response.success && response.data) {
         store.setWallet(response.data);
       } else {

@@ -7,27 +7,37 @@
 
     <ul class="divide-y divide-gray-100">
       <li
-        v-for="(tx, i) in transactions"
+        v-for="(trx, i) in transactions"
         :key="i"
         class="flex items-center justify-between py-2"
       >
         <div class="flex items-center gap-3">
-          <i
-            :class="`pi ${tx.icon} text-lg ${
-              tx.amount < 0 ? 'text-red-500' : 'text-green-500'
-            }`"
-          ></i>
+          <div
+            class="w-11 h-11 flex items-center justify-center rounded-full"
+            :class="typeColorLabel(trx.transaction_type).bg"
+          >
+            <i
+              :class="typeColorLabel(trx.transaction_type).icon"
+              class="text-base"
+            ></i>
+          </div>
           <div>
-            <div class="text-sm font-medium text-gray-800">{{ tx.title }}</div>
-            <div class="text-xs text-gray-400">{{ tx.date }}</div>
+            <div class="text-sm font-medium text-gray-800">{{ trx.title }}</div>
+            <div class="text-xs text-gray-400">
+              {{ formatDateLocal(trx.trx_date) }}
+            </div>
           </div>
         </div>
         <div
-          :class="`text-sm font-semibold ${
-            tx.amount < 0 ? 'text-red-500' : 'text-green-600'
-          }`"
+          class="text-[15px] font-semibold"
+          :class="{
+            'text-green-600': getWalletMutationDirection(trx) === 'in',
+            'text-red-500': getWalletMutationDirection(trx) === 'out',
+          }"
         >
-          {{ tx.amount < 0 ? '-' : '+' }}Rp {{ Math.abs(tx.amount).toLocaleString("id-ID") }}
+          <span v-if="getWalletMutationDirection(trx) === 'in'">+</span>
+          <span v-else-if="getWalletMutationDirection(trx) === 'out'">-</span>
+          {{ formatAmountCurrency(trx.amount) }}
         </div>
       </li>
     </ul>
@@ -35,9 +45,15 @@
 </template>
 
 <script setup lang="ts">
-import type { Transaction } from '~/types/models/transation';
+import {
+  typeColorLabel,
+  getWalletMutationDirection,
+  formatAmountCurrency,
+  formatDateLocal,
+} from "#imports";
+import type { Transaction } from "~/types/models";
 
 const props = defineProps({
-  transactions: { type: Array as () => Transaction[], default: () => [] }
-})
+  transactions: { type: Array as () => Transaction[], default: () => [] },
+});
 </script>
