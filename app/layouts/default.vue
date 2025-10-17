@@ -63,10 +63,6 @@
 import { useRoute, useRouter, navigateTo, useState } from "#app";
 import auth from "~/middleware/auth";
 
-definePageMeta({
-  middleware: [auth],
-});
-
 const route = useRoute();
 const router = useRouter();
 
@@ -74,6 +70,14 @@ const router = useRouter();
 const layoutProps = useState("layout-props", () => ({
   title: "Wallet Indonesia",
   showBackButton: false,
+}));
+
+definePageMeta({
+  middleware: [auth],
+});
+
+useHead(() => ({
+  title: layoutProps.value?.title || "Wallet Indonesia",
 }));
 
 const handleBack = () => {
