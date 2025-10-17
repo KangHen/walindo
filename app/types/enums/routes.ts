@@ -10,4 +10,5 @@ export enum Routes {
   WALLET = "/wallet",
   TRANSACTIONS = "/transactions",
   ME = "/me",
+  USER = "/user",
 }

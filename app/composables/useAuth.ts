@@ -1,10 +1,12 @@
 // composables/useAuth.ts
 import { AuthService } from "~/services/auth.service";
+import type { User } from "~/types/models";
 
 export const useAuth = () => {
   const authStore = useAuthStore();
   const loading = ref(false);
   const errorMessage = ref<string | null>(null);
+  const currentUser = ref<User | null>(null);
 
   const login = async (email: string, password: string) => {
     loading.value = true;
@@ -39,6 +41,20 @@ export const useAuth = () => {
     navigateTo("/login");
   };
 
+  const fetchCurrentUser = async () => {
+    try {
+      const response = await AuthService.me();
+
+      if (response?.success && response?.data) {
+        currentUser.value = response.data;
+      } else {
+        throw new Error("Error fetching user data");
+      }
+    } catch (err: any) {
+      errorMessage.value = err.message || "Fetching user data failed";
+    }
+  };
+
   const initAuth = () => {
     authStore.loadAuthFromStorage();
   };
@@ -49,10 +65,12 @@ export const useAuth = () => {
       return authStore.user;
     }),
     isAuthenticated: computed(() => authStore.isAuthenticated),
+    currentUser,
     loading,
     errorMessage,
     login,
     logout,
     initAuth,
+    fetchCurrentUser,
   };
 };

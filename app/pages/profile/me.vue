@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-md mx-auto mt-4 space-y-5">
     <Card class="text-center">
-      <template #content>
+      <template v-if="!isLoading" #content>
         <div class="flex flex-col items-center">
           <div class="relative">
             <Avatar
@@ -74,6 +74,14 @@
           />
         </div>
       </template>
+      <template v-else #content>
+        <div class="w-full flex justify-center py-10">
+          <Skeleton shape="circle" size="5rem" class="mb-4"></Skeleton>
+        </div>
+        <div class="space-y-3 flex justify-center">
+          <Skeleton shape="circle" size="3rem" class="mr-2"></Skeleton>
+        </div>
+      </template>
     </Card>
   </div>
 </template>
@@ -84,6 +92,7 @@ import Card from "primevue/card";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import Avatar from "primevue/avatar";
+import { Skeleton } from "primevue";
 import type { User } from "~/types/models/user";
 
 const layoutProps = useState("layout-props");
@@ -92,35 +101,36 @@ layoutProps.value = {
   showBackButton: true,
 };
 
-const { user } = useAuth();
+const isLoading = ref(false);
+const { fetchCurrentUser, currentUser, user } = useAuth();
+const { updateUser } = useUser();
 
-const currentUser = user.value;
 const isEditing = ref(false);
-const userForm = reactive({
-  name: currentUser?.name,
-  email: currentUser?.email,
-  username: currentUser?.username,
+let userForm: Partial<User> = reactive({
+  name: user.value?.name,
+  email: user.value?.email,
+  username: user.value?.username,
 });
 
-const authStore = useAuthStore();
-
-const toggleEdit = () => {
-  if (!isEditing.value) {
-    isEditing.value = true;
-    userForm.name = currentUser?.name;
-    userForm.email = currentUser?.email;
-    userForm.username = currentUser?.username;
-  } else {
-    authStore.setUser({
-      ...currentUser,
-      name: userForm.name,
-      email: userForm.email,
-      username: userForm.username,
-    });
-
-    isEditing.value = false;
+const toggleEdit = async () => {
+  if (isEditing.value) {
+    await updateUser(currentUser.value!.id, userForm);
+    await updateUserForm();
   }
+
+  isEditing.value = !isEditing.value;
 };
+
+const updateUserForm = async () => {
+  isLoading.value = true;
+  await fetchCurrentUser();
+  isLoading.value = false;
+  userForm = { ...currentUser.value };
+};
+
+onMounted(async () => {
+  await updateUserForm();
+});
 </script>
 
 <style scoped>
