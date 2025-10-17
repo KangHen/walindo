@@ -92,7 +92,7 @@ import Card from "primevue/card";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
 import Avatar from "primevue/avatar";
-import { Skeleton } from "primevue";
+import Skeleton from "primevue/skeleton";
 import type { User } from "~/types/models/user";
 
 const layoutProps = useState("layout-props");
