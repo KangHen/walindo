@@ -11,4 +11,5 @@ export enum Routes {
   TRANSACTIONS = "/transactions",
   ME = "/me",
   USER = "/user",
+  FAQS = "/faqs",
 }
