@@ -21,3 +21,8 @@ export interface PaginateMeta {
 export interface ApiPaginatedResponse<T> extends ApiResponse<T> {
   meta: PaginateMeta;
 }
+
+export interface ApiDeleteResponse {
+  success: boolean;
+  message?: string;
+}
