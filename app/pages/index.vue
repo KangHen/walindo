@@ -1,11 +1,7 @@
 <template>
   <div class="max-w-md mx-auto bg-gray-50 min-h-screen p-4">
     <WalletHeader />
-    <WalletBalance
-      :balance="balance"
-      :updatedAt="updatedAt"
-      :loading="isLoading"
-    />
+    <WalletBalance :balance="isLoading ? 0 : balance" :updatedAt="updatedAt" />
     <WalletActions />
     <WalletTransactions :transactions="transactions" :loading="isLoading" />
   </div>
