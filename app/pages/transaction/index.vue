@@ -8,6 +8,7 @@
       <Button icon="pi pi-refresh" class="p-button-rounded p-button-text" @click="refreshList" tooltip="Refresh"
         tooltipOptions="{ position: 'bottom' }" />
     </div>
+    <TransactionItemWidget/>
     <div class="space-y-2">
       <span class="p-input-icon-left w-full">
         <i class="pi pi-search" />
@@ -72,6 +73,7 @@
 
 <script setup lang="ts">
 import TransactionSummary from '~/components/transaction/TransactionSummary.vue'
+import TransactionItemWidget from '~/components/transaction/TransactionItemWidget.vue'
 import { ref, computed } from 'vue'
 import { formatAmountCurrency, statusColorLabel, OptionListHelper, formatGroupDate, typeColorLabel, formatTimeLocal, getWalletMutationDirection } from '@/utils/GlobalHelper'
 import { TransactionType, TransactionStatus } from '@/types/enums/transaction'
@@ -122,7 +124,6 @@ function refreshList() {
   fetchTransactions()
 }
 
-// Would be change to auth user wallet
 const wallet = ref({
   id: 1,
   balance: 150000,

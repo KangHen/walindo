@@ -5,6 +5,12 @@ import {
   TransactionType,
 } from "~/types/enums/transaction";
 
+import type {
+  TransactionItem,
+  TransactionItemOptions,
+} from "~/types/models/transaction";
+
+
 export function formatGroupDate(dateStr: string) {
   const trxDate = new Date(dateStr);
   const today = new Date();
@@ -74,6 +80,51 @@ export function typeColorLabel(type: string | undefined) {
       return { bg: "bg-gray-100 text-gray-600", icon: "pi pi-question" };
   }
 }
+
+export function getTransactionItems({
+  onTransfer,
+  onTopUp,
+}: TransactionItemOptions = {}): TransactionItem[] {
+  const router = useRouter()
+  return [
+    {
+      label: 'Transfer',
+      icon: 'pi pi-send',
+      route: '/transfer',
+      action: onTransfer || (() => router?.push('/transfer')),
+    },
+    {
+      label: 'Top Up',
+      icon: 'pi pi-wallet',
+      route: '/transaction/topup',
+      action: onTopUp || (() => router?.push('/transaction/topup')),
+    },
+    {
+      label: 'Withdraw',
+      icon: 'pi pi-arrow-down',
+      route: '/transaction/withdraw',
+      action: () => router?.push('/transaction/withdraw'),
+    },
+    {
+      label: 'Payment',
+      icon: 'pi pi-credit-card',
+      route: '/transaction/payment',
+      action: () => router?.push('/transaction/payment'),
+    },
+    {
+      label: 'History',
+      icon: 'pi pi-clock',
+      route: '/transaction/history',
+      action: () => router?.push('/transaction/history'),
+    },
+    {
+      label: 'More',
+      icon: 'pi pi-ellipsis-h',
+      action: () => console.log('Show more menu...'),
+    },
+  ]
+}
+
 
 export function getWalletMutationDirection(
   trx: any, // Change to Mutation type: Mutation[]
