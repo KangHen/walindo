@@ -91,31 +91,31 @@ export function getTransactionItems({
       label: 'Transfer',
       icon: 'pi pi-send',
       route: '/transfer',
-      action: onTransfer || (() => router?.push('/transfer')),
+      action: onTransfer || (() => router.push('/transfer')),
     },
     {
       label: 'Top Up',
       icon: 'pi pi-wallet',
       route: '/transaction/topup',
-      action: onTopUp || (() => router?.push('/transaction/topup')),
+      action: onTopUp || (() => router.push('/transaction/topup')),
     },
     {
       label: 'Withdraw',
       icon: 'pi pi-arrow-down',
       route: '/transaction/withdraw',
-      action: () => router?.push('/transaction/withdraw'),
+      action: () => router.push('/transaction/withdraw'),
     },
     {
       label: 'Payment',
       icon: 'pi pi-credit-card',
       route: '/transaction/payment',
-      action: () => router?.push('/transaction/payment'),
+      action: () => router.push('/transaction/payment'),
     },
     {
       label: 'History',
       icon: 'pi pi-clock',
       route: '/transaction/history',
-      action: () => router?.push('/transaction/history'),
+      action: () => router.push('/transaction/history'),
     },
     {
       label: 'More',
@@ -127,12 +127,10 @@ export function getTransactionItems({
 
 
 export function getWalletMutationDirection(
-  trx: any, // Change to Mutation type: Mutation[]
+  trx: any, 
   currentWalletId?: string | number
 ) {
   const mutation = trx.mutations?.[0];
-  // implement after auth has been setup
-  // const mutation = trx.mutations?.find((m: any) => m.wallet_id == currentWalletId)
   if (!mutation) return null;
   return mutation.mutation_type;
 }

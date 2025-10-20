@@ -5,11 +5,11 @@
       <h2 class="text-lg font-semibold">Transfer</h2>
     </div>
     <TabView v-model:activeIndex="activeTab" class="rounded-xl overflow-hidden shadow-sm">
-      <TabPanel :value="0" header="Bank">
-        <TransferFormBank />
-      </TabPanel>
+      <!-- <TabPanel :value="0" header="Bank">
+        <TransferToBank />
+      </TabPanel> -->
       <TabPanel :value="1" header="Nomor HP">
-        <TransferFormPhone />
+        <TransferToUser />
       </TabPanel>
     </TabView>
   </div>
@@ -18,8 +18,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import TransferFormBank from '~/components/transfer/TransferFromBank.vue'
-import TransferFormPhone from '~/components/transfer/TransferFromPhone.vue'
+import TransferToUser from '~/components/transfer/ToUser.vue'
 const layoutProps = useState('layout-props')
 layoutProps.value = {
   title: 'Transaction',
