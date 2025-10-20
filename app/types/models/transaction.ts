@@ -25,3 +25,15 @@ export interface TransactionParams {
   type: TransactionType;
   status: TransactionStatus;
 }
+
+export interface TransactionItem {
+  label: string
+  icon: string
+  route?: string
+  action?: () => void
+}
+
+export interface TransactionItemOptions {
+  onTransfer?: () => void
+  onTopUp?: () => void
+}

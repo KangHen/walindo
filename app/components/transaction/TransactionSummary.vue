@@ -29,11 +29,7 @@
     </div>
 
     <div class="flex justify-center gap-2">
-      <Button
-        v-for="range in OptionListHelper.rangeOptions()"
-        :key="range.value"
-        :label="range.label"
-      />
+      
     </div>
   </div>
 </template>
