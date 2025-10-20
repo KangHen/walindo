@@ -28,6 +28,7 @@
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
+const router = useRouter()
 const route = useRoute()
 const bankCode = route.query.bankCode as string
 const bankName = computed(() => {
