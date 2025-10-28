@@ -8,7 +8,7 @@
       <!-- <TabPanel :value="0" header="Bank">
         <TransferToBank />
       </TabPanel> -->
-      <TabPanel :value="1" header="Nomor HP">
+      <TabPanel :value="1" header="Phone Number">
         <TransferToUser />
       </TabPanel>
     </TabView>

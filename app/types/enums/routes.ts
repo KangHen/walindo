@@ -12,4 +12,5 @@ export enum Routes {
   ME = "/me",
   USER = "/user",
   FAQS = "/faqs",
+  PHONE = "/phone-number"
 }
