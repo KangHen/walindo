@@ -1,4 +1,5 @@
 import { ref, computed } from "vue";
+import Id from "~/pages/transaction/[id].vue";
 import { TransactionService } from "~/services/transaction.service";
 import { useTransactionStore } from "~/stores/transaction.store";
 import type { TransactionParams } from "~/types/models/transaction";
@@ -34,6 +35,20 @@ export const useTransaction = () => {
     }
   };
 
+  const sendTransactionByPhone = async ( phoneNumber: string, amount: number, title: string ) => {
+    loading.value = true;
+    errorMessage.value = null;
+
+    try {
+      await TransactionService.sendTransactionPhoneNumber( phoneNumber, amount, title );
+    } catch (err: any) {
+      errorMessage.value =
+        err.message || "Failed to send transaction via phone";
+    } finally {
+      loading.value = false;
+    }
+  };
+
   return {
     transactions: computed(() => store.transactions),
     selectedTransaction: computed(() => store.selectedTransaction),
@@ -41,5 +56,6 @@ export const useTransaction = () => {
     errorMessage,
     fetchTransactions,
     fetchTransactionById,
+    sendTransactionByPhone,
   };
 };

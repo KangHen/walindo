@@ -3,7 +3,7 @@ import type { ApiResponse } from './api.response';
 
 export interface UserPhoneData {
   name: string;
-  phone: number;
+  phone: string;
 }
 
 export type UserPhoneNumberResponse = ApiResponse<UserPhoneData>;

@@ -74,4 +74,19 @@ export const TransactionService = {
       throw new Error(error.message || "Failed to delete transaction");
     }
   },
+
+  async sendTransactionPhoneNumber( phoneNumber: string, amount: number, title: string ): Promise<void> {
+    const { $api } = useNuxtApp();
+    try {
+      await $api.post(`${Routes.TRANSACTIONS}/phone-number`, {
+        phone_number: phoneNumber,
+        amount: amount,
+        title: title,
+      });
+    } catch (error: any) {
+      throw new Error(
+        error.message || "Failed to send transaction phone number"
+      );
+    }
+  },
 };
