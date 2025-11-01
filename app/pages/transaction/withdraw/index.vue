@@ -22,7 +22,7 @@ const methods = [
     code: 'atm',
     name: 'ATM Bersama',
     icon: 'https://upload.wikimedia.org/wikipedia/en/b/bb/ATM_Bersama.png',
-    route: '/withdraw/to-bank'
+    route: '/transaction/withdraw/to-bank'
   },
   {
     code: 'localbank',
