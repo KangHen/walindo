@@ -89,14 +89,19 @@ import InputNumber from "primevue/inputnumber";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 import { usePhoneCheck } from "~/composables/usePhone";
+import { useTransaction } from "~/composables/useTransaction";
+import { usePhoneStore } from "~/stores/phone.store";
 
+const phoneStore = usePhoneStore();
 const step = ref(1);
 const phoneNumber = ref("");
 const amount = ref<number | null>(null);
 const note = ref("");
 const overlayMessage = ref("");
 
+
 const { phone, loading, error, checkPhone, clearPhone } = usePhoneCheck();
+const { sendTransactionByPhone } = useTransaction();
 
 const normalizePhone = (phone: string) => phone.replace(/\D/g, "");
 
@@ -119,7 +124,11 @@ const checkUser = async () => {
 
 const submit = async () => {
   loading.value = true;
-  await new Promise((r) => setTimeout(r, 1200));
+  if (amount.value === null || amount.value <= 0) {
+  showOverlay("Please enter a valid amount");
+    return;
+  }
+  await sendTransactionByPhone(phoneStore.phoneNumber, amount.value, note.value);
   loading.value = false;
   step.value = 3;
 };
