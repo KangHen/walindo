@@ -42,15 +42,13 @@
           />
         </div>
       </div>
-
       <div class="flex gap-3">
         <button @click="step = 1" class="flex-1 border border-gray-300 py-3 rounded-2xl hover:bg-gray-50 transition">
           Back
         </button>
         <button @click="openPinModal = true"
           :disabled="!accountNumber || !amount"
-          class="flex-1 bg-blue-600 text-white py-3 rounded-2xl hover:bg-blue-700 transition disabled:bg-gray-300"
-        >
+          class="flex-1 bg-blue-600 text-white py-3 rounded-2xl hover:bg-blue-700 transition disabled:bg-gray-300">
           Submit
         </button>
       </div>
