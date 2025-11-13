@@ -1,6 +1,6 @@
 <template>
   <div class="p-4 space-y-4">
-    <h1 class="text-lg font-semibold text-gray-800 mb-2">Pilih Metode Penarikan</h1>
+    <h1 class="text-lg font-semibold text-gray-800 mb-2">Choose Withdraw Method</h1>
 
     <div class="grid grid-cols-2 gap-3">
       <button
@@ -22,19 +22,19 @@ const methods = [
     code: 'atm',
     name: 'ATM Bersama',
     icon: 'https://upload.wikimedia.org/wikipedia/en/b/bb/ATM_Bersama.png',
-    route: '/withdraw/to-bank'
+    route: '/transaction/withdraw/to-bank'
   },
   {
     code: 'localbank',
     name: 'Ke Local Bank',
     icon: 'https://cdn-icons-png.flaticon.com/512/3135/3135706.png',
-    route: '/withdraw/to-bank'
+    route: '/transaction/withdraw/to-bank'
   },
   {
     code: 'indomaret',
     name: 'Indomaret',
     icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Indomaret.svg/1024px-Indomaret.svg.png',
-    route: '/withdraw/to-agent'
+    route: '/transaction/withdraw/indomaret'
   },
   {
     code: 'alfamart',
